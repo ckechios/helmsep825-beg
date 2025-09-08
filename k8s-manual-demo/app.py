@@ -14,7 +14,7 @@ def hello():
     # for _ in range(10_000_000):
     # for _ in range(1_000_000):
     #     x += 1
-    time.sleep(2)  # 2 sec delay
+    # time.sleep(2)  # 2 sec delay
     end_at = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     end_at_val = datetime.now()
     duration = (end_at_val - start_at_val).total_seconds()
@@ -23,7 +23,11 @@ def hello():
       "status" : "ok",
       "time" : f"{start_at} - {end_at} - duration: {duration:.1f} seconds",
       "msg" : f"From Pod: {os.getenv('HOSTNAME')}"
-      }
+      }, 200
+
+@app.route('/health')
+def health():
+    return {"status": "ok"}, 200
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5001, debug=True)
+    app.run(host='0.0.0.0', port=5000, debug=True)
